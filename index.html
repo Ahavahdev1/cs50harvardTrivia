@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+        <title>Trivia!</title>
+        <style>
+            body {
+                font-family: 'Montserrat', sans-serif;
+            }
+            .jumbotron {
+                background-color: #f8f9fa;
+                padding: 2rem 1rem;
+                text-align: center;
+            }
+            .container {
+                margin: 2rem;
+            }
+            .section {
+                margin-bottom: 2rem;
+            }
+            button {
+                display: block;
+                margin: 0.5rem 0;
+                padding: 0.5rem;
+                font-size: 1rem;
+                cursor: pointer;
+            }
+            input[type="text"] {
+                display: block;
+                margin: 0.5rem 0;
+                padding: 0.5rem;
+                font-size: 1rem;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="jumbotron">
+            <h1>Trivia!</h1>
+        </div>
+
+        <div class="container">
+
+            <div class="section">
+                <h2>Part 1: Multiple Choice</h2>
+                <hr>
+                <h3>Qual é a capital do Brasil?</h3>
+                <button type="button" class="answer" data-correct="false">São Paulo</button>
+                <button type="button" class="answer" data-correct="false">Rio de Janeiro</button>
+                <button type="button" class="answer" data-correct="true">Brasília</button>
+                <button type="button" class="answer" data-correct="false">Curitiba</button>
+                <button type="button" class="answer" data-correct="false">Sorocaba</button>
+
+                <p id="message"></p>
+            </div>
+
+            <div class="section">
+                <h2>Part 2: Free Response</h2>
+                <hr>
+                <h3>Qual é o nome do ex-presidente do Brasil?</h3>
+                <input type="text" id="q" name="q">
+                <input type="submit" id="btn" value="Check Answer">
+                <p id="letyaknow"></p>
+            </div>
+        </div>
+
+        <script>
+            // Handle multiple choice answers
+            const answers = document.querySelectorAll(".answer");
+            let messageElement = document.getElementById("message");
+
+            answers.forEach(answer => {
+                answer.addEventListener("click", function() {
+                    // Reset all buttons
+                    answers.forEach(btn => btn.style.backgroundColor = "");
+                    messageElement.textContent = "";
+
+                    if (this.getAttribute("data-correct") === "true") {
+                        this.style.backgroundColor = "#00ff00";
+                        messageElement.style.color = "#00ff00";
+                        messageElement.style.fontWeight = "bold";
+                        messageElement.textContent = "Correct!";
+                    } else {
+                        this.style.backgroundColor = "#ff0000";
+                        messageElement.style.color = "#ff0000";
+                        messageElement.style.fontWeight = "bold";
+                        messageElement.textContent = "Incorrect";
+                    }
+                });
+            });
+
+            // Handle free response
+            const btn = document.getElementById("btn");
+            const messageElement2 = document.getElementById("letyaknow");
+            btn.addEventListener("click", function() {
+                let inputField = document.getElementById("q");
+                let userAnswer = inputField.value.trim();
+
+                let correctAnswer = "Jair Messias Bolsonaro";
+
+                if (userAnswer.toLowerCase() === correctAnswer.toLowerCase()) {
+                    inputField.style.backgroundColor = "rgba(0, 255, 0, 0.6)";
+                    messageElement2.style.color = "#00ff00";
+                    messageElement2.style.fontWeight = "bold";
+                    messageElement2.textContent = "Correct!";
+                } else {
+                    inputField.style.backgroundColor = "rgba(255, 0, 0, 0.6)";
+                    messageElement2.style.color = "#ff0000";
+                    messageElement2.style.fontWeight = "bold";
+                    messageElement2.textContent = "Incorrect";
+                }
+            });
+        </script>
+    </body>
+</html>
+
